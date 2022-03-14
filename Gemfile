@@ -8,5 +8,6 @@ gem 'aws-sdk'
 gem "aws-sdk-core"
 gem 'json'
 gem 'slack-notifier'
+gem 'rspec'
 
 # gem "rails"
