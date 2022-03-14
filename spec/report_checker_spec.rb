@@ -1,7 +1,7 @@
-require 'report_checker.rb'
-require 'rspec.rb'
+require "report_checker"
+require "rspec"
 
-describe 'ReportChecker' do
+describe "ReportChecker" do
   let!(:event) do
     {
       "Records" => [
@@ -18,7 +18,7 @@ describe 'ReportChecker' do
             },
             "object" => {
               "key" => "reports/job-XXX.csv",
-              "size" => 14772,
+              "size" => 14_772,
               "eTag" => "XXXXXX",
               "sequencer" => "XXXXXX"
             }
@@ -62,5 +62,4 @@ describe 'ReportChecker' do
       expect(result).to eq false
     end
   end
-
 end
