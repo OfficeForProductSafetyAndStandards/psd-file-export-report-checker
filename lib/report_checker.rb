@@ -18,12 +18,10 @@ class ReportChecker
 
     any_rows_failed
 
-    webhookurl = ENV["WEBHOOK_URL"]
-
-    p webhookurl
-
-    notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "notifier")
-    notifier.ping "The redacted export has failures", channel: "@macphersonkd"
-    # alert slack if any_rows_failed == true
+    # if any_rows_failed == true
+    #   webhookurl = ENV["WEBHOOK_URL"]
+    #   notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "notifier")
+    #   notifier.ping "The redacted export has failures", channel: "@macphersonkd"
+    # end
   end
 end
