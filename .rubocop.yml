@@ -4,7 +4,6 @@ inherit_gem:
     - config/rails.yml
 
 require:
-  - rubocop-performance
   - rubocop-rspec
 
 Style/TrailingCommaInArrayLiteral:
