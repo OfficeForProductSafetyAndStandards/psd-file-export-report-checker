@@ -1,7 +1,7 @@
 require "json"
 require "aws-sdk"
 require "aws-sdk-core"
-# require "slack-notifier"
+require "slack-notifier"
 
 class ReportChecker
   def self.call(event:, context:)
@@ -20,10 +20,10 @@ class ReportChecker
 
     rows
 
-    # if any_rows_failed == true
-    #   webhookurl = ENV["WEBHOOK_URL"]
-    #   notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "notifier")
-    #   notifier.ping "The redacted export has failures", channel: "@macphersonkd"
-    # end
+    if any_rows_failed == true
+      webhookurl = ENV["SLACK_WEBHOOK_URL"]
+      notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "notifier")
+      notifier.ping "The redacted export has failures", channel: "@macphersonkd"
+    end
   end
 end
