@@ -19,7 +19,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: eu-west-2
       - name: Deploy zip file
         run: |
-          aws lambda update-function-code --function-name test_ruby_lambda --zip-file fileb://report_checker.zip 
+          aws lambda update-function-code --function-name test_ruby_lambda --zip-file fileb://report_checker.zip
