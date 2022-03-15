@@ -1,7 +1,7 @@
 require "json"
 require "aws-sdk"
 require "aws-sdk-core"
-require "slack-notifier"
+# require "slack-notifier"
 
 class ReportChecker
   def self.call(event:, context:)
@@ -17,6 +17,8 @@ class ReportChecker
     any_rows_failed = failures_by_row.include?(true)
 
     any_rows_failed
+
+    rows
 
     # if any_rows_failed == true
     #   webhookurl = ENV["WEBHOOK_URL"]

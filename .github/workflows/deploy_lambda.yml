@@ -1,0 +1,24 @@
+name: deploy lambda
+
+on: [push]
+
+jobs:
+  deploy_source:
+    name: build and deploy lambda
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+      - name: Install dependencies
+        run: bundle config set --local path 'vendor/bundle' && bundle install
+      - name: Zip
+        run:  zip -r report_checker.zip lib/report_checker.rb vendor
+      - name: deploy zip to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: test_ruby_lambda
+          zip_file: report_checker.zip
