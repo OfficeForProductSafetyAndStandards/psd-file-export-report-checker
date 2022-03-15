@@ -14,11 +14,12 @@ jobs:
         run: bundle config set --local path 'vendor/bundle' && bundle install
       - name: Zip
         run:  zip -r report_checker.zip lib/report_checker.rb vendor
-      - name: deploy zip to aws lambda
-        uses: appleboy/lambda-action@master
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: test_ruby_lambda
-          zip_file: report_checker.zip
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy zip file
+        run: |
+          aws lambda update-function-code --function-name test_ruby_lambda --zip-file fileb://report_checker.zip 
