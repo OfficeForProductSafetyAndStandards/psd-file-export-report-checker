@@ -16,9 +16,8 @@ class ReportChecker
     failures_by_row = rows.map { |row| !row.include?("succeeded") || !row.include?("200") }
     any_rows_failed = failures_by_row.include?(true)
 
-    if any_rows_failed == false
+    if any_rows_failed == true
       webhookurl = ENV["SLACK_WEBHOOK_URL"]
-      p webhookurl
       notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "notifier")
       notifier.ping "The redacted export has failures", channel: "@macphersonkd"
     end
