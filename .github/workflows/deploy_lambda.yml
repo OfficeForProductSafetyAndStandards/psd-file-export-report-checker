@@ -25,4 +25,4 @@ jobs:
           aws-region: eu-west-2
       - name: Deploy zip file
         run: |
-          aws lambda update-function-code --function-name test_ruby_lambda --zip-file fileb://report_checker.zip
+          aws lambda update-function-code --function-name PsdFileExportReportChecker --zip-file fileb://report_checker.zip
