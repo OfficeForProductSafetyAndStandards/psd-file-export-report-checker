@@ -18,8 +18,8 @@ class ReportChecker
     if !any_rows_failed
       # the below env variable is defined here: https://eu-west-2.console.aws.amazon.com/lambda/home?region=eu-west-2#/functions/PsdFileExportReportChecker?tab=configure
       webhookurl = ENV["SLACK_WEBHOOK_URL"]
-      notifier = Slack::Notifier.new(webhookurl, channel: "@macphersonkd", username: "PsdFileExportReportChecker")
-      notifier.ping "Redacted export failed! Bucket: #{bucket_name} Key: #{key}", channel: "@macphersonkd"
+      notifier = Slack::Notifier.new(webhookurl, channel: "#alerts", username: "PsdFileExportReportChecker")
+      notifier.ping "Redacted export failed! Bucket: #{bucket_name} Key: #{key}", channel: "#alerts"
     end
   end
 end
