@@ -37,20 +37,23 @@ describe "ReportChecker" do
   end
 
   let(:aws_double)  { "aws_double" }
-  let(:resp_double) { "resp_double" }
+  let(:response_double) { "response_double" }
+  let(:slack_notifier_double) { "slack_notifier_double" }
 
   before do
     allow(Aws::S3::Client).to receive(:new) { aws_double }
-    allow(aws_double).to receive(:get_object) { resp_double }
-    allow(resp_double).to receive_message_chain(:body, :read) { csv }
+    allow(aws_double).to receive(:get_object) { response_double }
+    allow(response_double).to receive_message_chain(:body, :read) { csv }
+    ENV["SLACK_WEBHOOK_URL"] = "https://www.somefakeandrandomurl.com"
   end
 
   context "when the report has failures" do
     let(:csv) { csv_with_failures }
 
     it "returns true" do
-      result = ReportChecker.call(event: event, context: nil)
-      expect(result).to eq true
+      allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
+      expect(slack_notifier_double).to receive(:ping)
+      ReportChecker.call(event: event, context: nil)
     end
   end
 
@@ -58,8 +61,9 @@ describe "ReportChecker" do
     let(:csv) { csv_without_failures }
 
     it "returns false" do
-      result = ReportChecker.call(event: event, context: nil)
-      expect(result).to eq false
+      allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
+      expect(slack_notifier_double).not_to receive(:ping)
+      ReportChecker.call(event: event, context: nil)
     end
   end
 end
