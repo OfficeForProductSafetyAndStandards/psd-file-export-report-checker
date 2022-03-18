@@ -1,6 +1,5 @@
 require "json"
 require "aws-sdk"
-require "aws-sdk-core"
 require "slack-notifier"
 
 class ReportChecker
