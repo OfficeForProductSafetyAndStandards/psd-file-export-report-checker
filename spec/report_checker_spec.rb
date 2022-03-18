@@ -50,7 +50,7 @@ describe "ReportChecker" do
   context "when the report has failures" do
     let(:csv) { csv_with_failures }
 
-    it "returns true" do
+    it "triggers slack notifier to send a slack message" do
       allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
       expect(slack_notifier_double).to receive(:ping)
       ReportChecker.call(event: event, context: nil)
@@ -60,7 +60,7 @@ describe "ReportChecker" do
   context "when report has no failures" do
     let(:csv) { csv_without_failures }
 
-    it "returns false" do
+    it "does not trigger slack notifier to send a slack message"" do
       allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
       expect(slack_notifier_double).not_to receive(:ping)
       ReportChecker.call(event: event, context: nil)
