@@ -4,7 +4,12 @@ inherit_gem:
     - config/rails.yml
 
 require:
+  - rubocop-performance
   - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'vendor/bundle/**/*'
 
 Style/TrailingCommaInArrayLiteral:
   Enabled: false
@@ -21,11 +26,20 @@ Rails/HelperInstanceVariable:
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
+Lint/UnusedMethodArgument:
+  Enabled: false
+
 RSpec/NestedGroups:
   Max: 6
 
 RSpec/ExampleLength:
   Max: 7
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false

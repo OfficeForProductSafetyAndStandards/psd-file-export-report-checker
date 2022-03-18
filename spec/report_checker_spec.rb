@@ -36,7 +36,7 @@ describe "ReportChecker" do
     "xyzxyz,Fqzv6q8Adycwndq0kmne36a2qo,,failed,400,,Failure\r\nxyzxyz,Fqzv6q8AdFqzv6q8Ad,,succeeded,200,,Successful\r\n"
   end
 
-  let(:aws_double)  { "aws_double" }
+  let(:aws_double) { "aws_double" }
   let(:response_double) { "response_double" }
   let(:slack_notifier_double) { "slack_notifier_double" }
 
