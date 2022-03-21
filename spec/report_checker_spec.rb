@@ -45,14 +45,14 @@ describe "ReportChecker" do
     allow(aws_double).to receive(:get_object) { response_double }
     allow(response_double).to receive_message_chain(:body, :read) { csv }
     ENV["SLACK_WEBHOOK_URL"] = "https://www.somefakeandrandomurl.com"
+    allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
   end
 
   context "when the report has failures" do
     let(:csv) { csv_with_failures }
 
     it "triggers slack notifier to send a slack message" do
-      allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
-      expect(slack_notifier_double).to receive(:ping)
+      expect(slack_notifier_double).to receive(:ping).with("Redacted export failed! Bucket: psd Key: reports/job-XXX.csv")
       ReportChecker.call(event: event, context: nil)
     end
   end
@@ -61,9 +61,16 @@ describe "ReportChecker" do
     let(:csv) { csv_without_failures }
 
     it "does not trigger slack notifier to send a slack message" do
-      allow(Slack::Notifier).to receive(:new) { slack_notifier_double }
       expect(slack_notifier_double).not_to receive(:ping)
       ReportChecker.call(event: event, context: nil)
+    end
+  end
+
+  context "when there is an exception" do
+    it "triggers slack notifier to send info about the exception and raises the error" do
+      allow(Aws::S3::Client).to receive(:new) { raise StandardError }
+      expect(slack_notifier_double).to receive(:ping).with("ReportChecker Exception. StandardError StandardError")
+      expect { ReportChecker.call(event: event, context: nil) }.to raise_error
     end
   end
 end
