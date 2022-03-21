@@ -20,7 +20,7 @@ class ReportChecker
       notifier.ping "Redacted export failed! Bucket: #{bucket_name} Key: #{key}", channel: "#alerts"
     end
   rescue Exception => e
-    notifier.ping "ReportChecker Exception. #{e.exception} #{e.message}"
+    notifier.ping "ReportChecker Exception. #{e.exception} #{e.message}", channel: "@macphersonkd"
     raise
   end
 
