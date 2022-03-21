@@ -42,3 +42,6 @@ RSpec/MessageChain:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
