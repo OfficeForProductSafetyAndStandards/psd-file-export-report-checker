@@ -45,3 +45,6 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+Lint/RescueException:
+  Enabled: false
