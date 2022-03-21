@@ -69,7 +69,7 @@ describe "ReportChecker" do
   context "when there is an exception" do
     it "triggers slack notifier to send info about the exception and raises the error" do
       allow(Aws::S3::Client).to receive(:new) { raise StandardError }
-      expect(slack_notifier_double).to receive(:ping).with("ReportChecker Exception. StandardError StandardError")
+      expect(slack_notifier_double).to receive(:ping).with("ReportChecker raised the following Exception: StandardError StandardError")
       expect { ReportChecker.call(event: event, context: nil) }.to raise_error
     end
   end

@@ -17,10 +17,10 @@ class ReportChecker
 
     if any_rows_failed
       # the below env variable is defined here: https://eu-west-2.console.aws.amazon.com/lambda/home?region=eu-west-2#/functions/PsdFileExportReportChecker?tab=configure
-      notifier.ping "Redacted export failed! Bucket: #{bucket_name} Key: #{key}", channel: "#alerts"
+      notifier.ping "Redacted export failed! Bucket: #{bucket_name} Key: #{key}"
     end
   rescue Exception => e
-    notifier.ping "ReportChecker Exception. #{e.exception} #{e.message}", channel: "@macphersonkd"
+    notifier.ping "ReportChecker raised the following Exception: #{e.exception} #{e.message}"
     raise
   end
 
