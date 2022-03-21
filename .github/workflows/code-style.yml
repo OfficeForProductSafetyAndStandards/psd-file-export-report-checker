@@ -15,6 +15,7 @@ jobs:
     - name: install dependencies
       run: |
         gem install rubocop
+        gem install rubocop-rspec
 
     - name: Run code style checks
       run:  rubocop
